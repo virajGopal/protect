@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const riskScoreValue = document.getElementById('riskScoreValue');
     const reasonsGrid = document.getElementById('reasonsGrid');
 
-    const API_URL = 'https://protect-yy78.onrender.com/api/scan';
+    const API_URL = '/api/scan';
     const HISTORY_KEY = 'defend_scan_history';
     const HISTORY_MAX = 50;
 
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 loadingState.classList.add('hidden');
                 scanBtn.disabled = false;
                 console.error('Error scanning URL:', err);
-                showToast('Cannot reach the scanner. Make sure the backend is running on localhost:8000.', 'error');
+                showToast('Cannot reach the scanner. Please try again later.', 'error');
             });
     }
 
