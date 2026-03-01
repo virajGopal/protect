@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defend | AI Phishing Detection</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for modern typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-effects">
+        <div class="gradient-sphere sphere-1"></div>
+        <div class="gradient-sphere sphere-2"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Defend</span>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="nav-link active" data-view="scanner">Scanner</a>
+            <a href="#" class="nav-link" data-view="history">History</a>
+            <a href="#" class="nav-link" data-view="about">About AI</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Scanner View -->
+        <div id="viewScanner" class="view active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Advanced URL Threat Detection</h1>
+            <p>Paste any suspicious link below. Our AI engine instantly analyzes lexical features, cross-references threat databases, and uncovers hidden phishing attempts.</p>
+            
+            <div class="search-container">
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-link input-icon"></i>
+                    <input type="url" id="urlInput" placeholder="https://example.com/suspicious-page" required aria-describedby="urlHint">
+                </div>
+                <button id="scanBtn" class="primary-btn" type="button">
+                    <span class="btn-text">Analyze URL</span>
+                    <i class="fa-solid fa-wand-magic-sparkles btn-icon"></i>
+                </button>
+            </div>
+            <p id="urlHint" class="input-hint">Paste a link and press Enter or click Analyze to scan.</p>
+        </section>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="hidden" role="status" aria-live="polite">
+            <div class="spinner" aria-hidden="true"></div>
+            <p id="loadingMessage">Analyzing URL...</p>
+            <p>Checking heuristics and threat databases</p>
+            <div class="loading-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+
+        <!-- Dashboard Results Section -->
+        <section id="resultsDashboard" class="results-dashboard hidden">
+            <div class="results-header">
+                <h2>Analysis Complete</h2>
+                <div id="threatBadge" class="threat-badge badge-safe">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span id="threatLevelText">Safe</span>
+                </div>
+            </div>
+
+            <div class="score-container">
+                <div class="score-circular">
+                    <svg viewBox="0 0 36 36" class="circular-chart">
+                        <path class="circle-bg"
+                          d="M18 2.0845
+                            a 15.9155 15.9155 0 0 1 0 31.831
+                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                        />
+                        <path class="circle-progress" id="scoreProgress"
+                          stroke-dasharray="20, 100"
+                          d="M18 2.0845
+                            a 15.9155 15.9155 0 0 1 0 31.831
+                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                        />
+                    </svg>
+                    <div class="score-text">
+                        <span id="riskScoreValue">20</span><span class="score-percent">%</span>
+                    </div>
+                </div>
+                <div class="score-details">
+                    <h3>Risk Assessment Score</h3>
+                    <p>Lower scores indicate a safe website. Higher scores indicate strong phishing characteristics.</p>
+                </div>
+            </div>
+
+            <!-- Detailed Breakdown -->
+            <div class="breakdown-grid" id="reasonsGrid">
+                <!-- Reasons will be injected here via JS -->
+            </div>
+            
+            <div class="action-buttons">
+                <button class="secondary-btn" id="newScanBtn">Scan Another URL</button>
+            </div>
+        </section>
+        </div>
+
+        <!-- History View -->
+        <div id="viewHistory" class="view">
+            <section class="page-section">
+                <h1 class="page-title">Scan History</h1>
+                <p class="page-subtitle">Previously analyzed URLs. Results are stored in your browser.</p>
+                <div id="historyList" class="history-list">
+                    <!-- Filled by JS -->
+                </div>
+                <div id="historyEmpty" class="history-empty hidden">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <p>No scans yet</p>
+                    <p class="history-empty-hint">Use the Scanner to analyze a URL. Your history will appear here.</p>
+                    <a href="#" class="nav-link-trigger primary-btn" data-view="scanner">Go to Scanner</a>
+                </div>
+            </section>
+        </div>
+
+        <!-- About AI View -->
+        <div id="viewAbout" class="view">
+            <section class="page-section about-section">
+                <h1 class="page-title">How the AI Works</h1>
+                <p class="page-subtitle">Our phishing detector uses rule-based heuristics and lexical analysis—no external AI APIs.</p>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <div class="about-card-icon"><i class="fa-solid fa-link"></i></div>
+                        <h3>URL Structure</h3>
+                        <p>We inspect domain length, subdomains, and suspicious patterns (e.g. IP addresses, unusual TLDs, homograph-style characters).</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-card-icon"><i class="fa-solid fa-list-check"></i></div>
+                        <h3>Heuristic Rules</h3>
+                        <p>Predefined rules flag common phishing signals: login/keyword stuffing, brand mimicry, and known malicious URL traits.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-card-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                        <h3>Risk Score</h3>
+                        <p>A 0–100 score is computed from these features. Lower means safer; higher means more indicators of phishing.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <h3>Your Privacy</h3>
+                        <p>URLs are analyzed on our server for scoring only. We don’t store or log your scans on the backend; history is local to your device.</p>
+                    </div>
+                </div>
+                <div class="about-cta">
+                    <a href="#" class="nav-link-trigger primary-btn" data-view="scanner">Try the Scanner</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+    <script src="app.js"></script>
+</body>
+</html>
