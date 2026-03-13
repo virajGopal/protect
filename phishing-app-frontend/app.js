@@ -1,3 +1,8 @@
+// Initialize Supabase Client
+const supabaseUrl = 'https://ynqzqurbjfudxtuwreez.supabase.co'; // <-- Please replace this with your actual Supabase Project URL
+const supabaseKey = 'sb_publishable_Oe1jHDujzYJOaFkO8MHTBw_fzCi590o';
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
 document.addEventListener('DOMContentLoaded', () => {
     const scanBtn = document.getElementById('scanBtn');
     const urlInput = document.getElementById('urlInput');
@@ -19,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const riskScoreValue = document.getElementById('riskScoreValue');
     const reasonsGrid = document.getElementById('reasonsGrid');
 
-    const API_URL = 'https://protect-2-x63m.onrender.com';
+    const API_URL = 'https://protect-2-x63m.onrender.com/api/scan';
     const HISTORY_KEY = 'defend_scan_history';
     const HISTORY_MAX = 50;
 
@@ -305,6 +310,43 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         window.requestAnimationFrame(step);
     }
+
+    // --- Supabase Login Handling ---
+    const loginForm = document.getElementById('loginForm');
+    const emailInput = document.getElementById('emailInput');
+    const passwordInput = document.getElementById('passwordInput');
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = emailInput.value;
+            const password = passwordInput.value;
+
+            // Show loading state on your button
+            const authBtn = loginForm.querySelector('.auth-btn');
+            const originalText = authBtn.innerHTML;
+            authBtn.innerHTML = '<span class="btn-text">Signing in...</span>';
+            authBtn.disabled = true;
+
+            // Call Supabase Auth
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password,
+            });
+
+            if (error) {
+                // Handle Error
+                showToast(error.message, 'error');
+                authBtn.innerHTML = originalText;
+                authBtn.disabled = false;
+            } else {
+                // Success!
+                showToast('Successfully logged in!', 'success');
+                // Redirect the view to the scanner immediately
+                switchView('scanner');
+                authBtn.innerHTML = originalText;
+                authBtn.disabled = false;
+            }
+        });
+    }
 });
-
-
