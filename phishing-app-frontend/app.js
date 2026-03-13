@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const riskScoreValue = document.getElementById('riskScoreValue');
     const reasonsGrid = document.getElementById('reasonsGrid');
 
-    const API_URL = 'https://protect-2-x63m.onrender.com/api/scan';
+    const API_URL = 'https://protect-2-x63m.onrender.com';
     const HISTORY_KEY = 'defend_scan_history';
     const HISTORY_MAX = 50;
 
@@ -306,6 +306,5 @@ document.addEventListener('DOMContentLoaded', () => {
         window.requestAnimationFrame(step);
     }
 });
-
 
 
